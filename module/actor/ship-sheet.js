@@ -564,7 +564,14 @@ export class yzecoriolisShipSheet extends ActorSheet {
     const ship = this.actor;
     const shipName = ship.name;
     const shipArmor = parseInt(ship.system.armor.value);
-    const characterName = game.user.character.name;
+    const characterName = game.user.character?.name ?? game.canvas.tokens.controlled[0]?.actor?.name;
+
+    if (!characterName) {
+      ui.notifications.error(
+        game.i18n.localize("YZECORIOLIS.InvalidNoCharacterSelected")
+      );
+      return;
+    }
 
     // For rolling on the ship sheet, the user who owns that actor can roll on
     // the ship sheet. The GM can also roll any actor.
