@@ -10,6 +10,10 @@ permissions:
   issues: write
   pull-requests: write
 
+env:
+  package_type: system
+  package_id: yzecoriolis
+
 jobs:
   create-release:
     runs-on: ubuntu-latest
@@ -109,32 +113,41 @@ jobs:
         with:
           go-version: "^1.16.5"
 
-      # we load the manifest unconditionally, since env: props are evaluated regardless of conditionals.
-      - name: "load manifest data"
+      - name: Get Compatibility
         if: ${{ steps.release_pr.outputs.release_created }}
-        id: manifest_data
         run: |
-          JSON=`cat ./system.json`
-          # the following lines are only required for multi line json
-          JSON="${JSON//'%'/'%25'}"
-          JSON="${JSON//$'\n'/'%0A'}"
-          JSON="${JSON//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=json::$JSON"
+          echo 'COMPATIBILITY<<EOF' >> $GITHUB_ENV
+          cat ${{ env.package_type }}.json | jq .compatibility >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
 
-      - name: "Setup Env vars for FVTT Admin"
+      - name: Send package to foundry
         if: ${{ steps.release_pr.outputs.release_created }}
         run: |
-          echo "FVTT_ADMIN_USER=${{ secrets.FVTT_ADMIN_USER }}" >> $GITHUB_ENV
-          echo "FVTT_ADMIN_PW=${{ secrets.FVTT_ADMIN_PW }}" >> $GITHUB_ENV
-          echo "FVTT_PACKAGE_ID=${{ secrets.FVTT_PACKAGE_ID }}" >> $GITHUB_ENV
-          echo "manifest=https://raw.githubusercontent.com/winks-vtt/yze-coriolis/v${{ steps.release_pr.outputs.major }}.${{ steps.release_pr.outputs.minor }}.${{ steps.release_pr.outputs.patch }}/system.json" >> $GITHUB_ENV
-          echo "notes=https://github.com/winks-vtt/yze-coriolis/blob/master/CHANGELOG.md" >> $GITHUB_ENV
-          echo "version=${{ steps.release_pr.outputs.major }}.${{ steps.release_pr.outputs.minor }}.${{ steps.release_pr.outputs.patch }}" >> $GITHUB_ENV
-          echo "required_version=${{ fromJson(steps.manifest_data.outputs.json).compatibility.minimum }}" >> $GITHUB_ENV
-          echo "compatible_version=${{ fromJson(steps.manifest_data.outputs.json).compatibility.verified }}" >> $GITHUB_ENV
-
-      - name: "Update FVTT Admin"
-        if: ${{ steps.release_pr.outputs.release_created }}
-        run: |
-          go run ./scripts/fadmin --version ${{ env.version }} --manifest ${{ env.manifest }} --notes ${{ env.notes }} --required ${{ env.required_version }} --compatible ${{ env.compatible_version }}
+          HTTP_RESPONSE=$(curl --silent --write-out "HTTPSTATUS:%{http_code}" -X POST 'https://foundryvtt.com/_api/packages/release_version/' \
+          --header 'Authorization: ${{ secrets.PACKAGE_TOKEN }}' \
+          --header 'Content-Type: application/json' \
+          --data '{
+              "id": "${{env.package_id}}",
+              "dry-run": ${{github.event.release.prerelease}},
+              "release": {
+                  "version": "${{ github.event.release.tag_name }}",
+                  "manifest": "https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/${{ env.package_type }}.json",
+                  "notes": "https://github.com/${{github.repository}}/releases/tag/${{github.event.release.tag_name}}",
+                  "compatibility": ${{ env.COMPATIBILITY }}
+              }
+          }')
+          
+          # extract the body
+          HTTP_BODY=$(echo $HTTP_RESPONSE | sed -e 's/HTTPSTATUS\:.*//g')
+          
+          # extract the status
+          HTTP_STATUS=$(echo $HTTP_RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+          
+          # print the body
+          echo "$HTTP_BODY"
+          
+          # example using the status
+          if [ ! $HTTP_STATUS -eq 200  ]; then
+            echo "Error [HTTP status: $HTTP_STATUS]"
+            exit 1
+          fi
