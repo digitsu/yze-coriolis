@@ -281,6 +281,16 @@ export const migrateItemData = function (item) {
   if (isUsingDefaultIcon && isTypeWithCustomIcon) {
     updateData = { img: getDefaultItemIcon(itemType, !!item.system.explosive) };
   }
+
+  // Combat Overhaul migrations
+  if (itemType === "weapon") {
+    foundry.utils.mergeObject(updateData, migrateWeaponRangeToEngaged(item));
+    foundry.utils.mergeObject(updateData, migrateWeaponArmorPenetration(item));
+  }
+  if (itemType === "armor") {
+    foundry.utils.mergeObject(updateData, migrateArmorDamageReduction(item));
+  }
+
   // Return the migrated update data
   return updateData;
 };
@@ -362,4 +372,58 @@ export const migrateTalentBonus = function (source) {
     };
     source.system.mpBonus = null;
   }
+};
+
+/**
+ * Combat Overhaul Migration Functions
+ * These functions help migrate weapon and armor data for the Combat Overhaul rules
+ */
+
+/**
+ * Migrate weapon range from "contact" or "close" to "engaged"
+ * @param {Object} itemData - The weapon item data
+ * @returns {Object} - Update data if migration needed
+ */
+export const migrateWeaponRangeToEngaged = function (itemData) {
+  if (itemData.type !== "weapon") {
+    return {};
+  }
+  const currentRange = itemData.system?.range;
+  if (currentRange === "contact" || currentRange === "close") {
+    return { "system.range": "engaged" };
+  }
+  return {};
+};
+
+/**
+ * Ensure weapon has armorPenetration field (default 0)
+ * @param {Object} itemData - The weapon item data
+ * @returns {Object} - Update data if migration needed
+ */
+export const migrateWeaponArmorPenetration = function (itemData) {
+  if (itemData.type !== "weapon") {
+    return {};
+  }
+  if (itemData.system?.armorPenetration === undefined) {
+    return { "system.armorPenetration": 0 };
+  }
+  return {};
+};
+
+/**
+ * Ensure armor has damageReduction field
+ * Sets damageReduction equal to armorRating as a starting point for Overhaul conversion
+ * @param {Object} itemData - The armor item data
+ * @returns {Object} - Update data if migration needed
+ */
+export const migrateArmorDamageReduction = function (itemData) {
+  if (itemData.type !== "armor") {
+    return {};
+  }
+  if (itemData.system?.damageReduction === undefined || itemData.system?.damageReduction === 0) {
+    // Set DR equal to armor rating as default conversion
+    const armorRating = itemData.system?.armorRating || 0;
+    return { "system.damageReduction": armorRating };
+  }
+  return {};
 };

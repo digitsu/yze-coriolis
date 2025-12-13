@@ -42,11 +42,13 @@ export class yzecoriolisItemSheet extends ItemSheet {
         async: true,
       }
     );
+    const combatOverhaul = game.settings.get("yzecoriolis", "combatOverhaul");
     const sheetData = {
       editable: baseData.editable,
       owner: baseData.item.isOwner,
       config: CONFIG.YZECORIOLIS,
       itemDescript,
+      combatOverhaul,
       ...baseData.item,
     };
     return sheetData;

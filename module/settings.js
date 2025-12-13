@@ -27,6 +27,17 @@ export const registerSystemSettings = function () {
     default: 0,
   });
 
+  // Combat Overhaul Rules Toggle
+  game.settings.register("yzecoriolis", "combatOverhaul", {
+    name: game.i18n.localize("YZECORIOLIS.SettingCombatOverhaul"),
+    hint: game.i18n.localize("YZECORIOLIS.SettingCombatOverhaulHint"),
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false,
+    onChange: debouncedReload,
+  });
+
   game.settings.register("yzecoriolis", "maxEPTokensAllowed", {
     name: game.i18n.localize("YZECORIOLIS.SettingMaxEnergyPoints"),
     scope: "world",

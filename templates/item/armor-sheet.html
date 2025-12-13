@@ -27,11 +27,20 @@
                     <label class="resource-label">{{localize "YZECORIOLIS.MoneyCost"}}</label>
                     <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="Number" />
                 </div>
-                <div class="resource flexrow numeric-input">
+                {{#unless combatOverhaul}}
+                <div class="resource flexrow numeric-input core-rules-only">
                     <label class="resource-label">{{localize "YZECORIOLIS.ArmorRating"}}</label>
                     <input type="number" min="0" name="system.armorRating" value="{{system.armorRating}}"
                         data-dtype="Number" />
                 </div>
+                {{/unless}}
+                {{#if combatOverhaul}}
+                <div class="resource flexrow numeric-input overhaul-rules-only">
+                    <label class="resource-label">{{localize "YZECORIOLIS.DamageReductionShort"}}</label>
+                    <input type="number" min="0" name="system.damageReduction" value="{{system.damageReduction}}"
+                        data-dtype="Number" />
+                </div>
+                {{/if}}
 
                 <div class="resource flexrow">
                     <label class="resource-label">{{localize "YZECORIOLIS.Weight"}}</label>
