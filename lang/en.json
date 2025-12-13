@@ -161,6 +161,11 @@
   "YZECORIOLIS.InjuryTimeLimitRoll": "Time Limit",
   "YZECORIOLIS.InjuryHealTimeRoll": "Heal Time",
   "YZECORIOLIS.ArmorRating": "Armor Rating",
+  "YZECORIOLIS.DamageReduction": "Damage Reduction",
+  "YZECORIOLIS.DamageReductionShort": "DR",
+  "YZECORIOLIS.ArmorPenetration": "Armor Penetration",
+  "YZECORIOLIS.ArmorPenetrationShort": "AP",
+  "YZECORIOLIS.CritThreshold": "Crit Threshold",
   "YZECORIOLIS.ExtraFeatures": "Extra Features",
 
   "YZECORIOLIS.AttrStrength": "Strength",
@@ -337,7 +342,7 @@
   "YZECORIOLIS.CritTypeCustom": "Custom Crit",
   "YZECORIOLIS.DamageTypeCustom": "Custom Damage",
 
-  "YZECORIOLIS.CloseRange": "Close",
+  "YZECORIOLIS.EngagedRange": "Engaged",
   "YZECORIOLIS.ContactRange": "Contact",
   "YZECORIOLIS.ShortRange": "Short",
   "YZECORIOLIS.MediumRange": "Medium",
@@ -382,6 +387,8 @@
   "YZECORIOLIS.Danger": "Dangers",
   "YZECORIOLIS.Checkout": "Income & Expenses",
 
+  "YZECORIOLIS.SettingCombatOverhaul": "Combat Overhaul Rules",
+  "YZECORIOLIS.SettingCombatOverhaulHint": "Enable the Coriolis Reloaded: Combat Overhaul rules. This changes armor to use Damage Reduction instead of Armor Rating dice, adds Armor Penetration to weapons, and modifies automatic fire mechanics.",
   "YZECORIOLIS.SettingMaxEnergyPoints": "Maximum Allowed Energy Points",
   "YZECORIOLIS.SettingAlwaysShowFeatures": "Always show features",
   "YZECORIOLIS.SettingAlwaysShowFeaturesHint": "Display item features inline for weapons, explosives, and armor in character sheets.",

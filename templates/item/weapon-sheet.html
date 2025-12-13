@@ -8,10 +8,18 @@
                     <label class="resource-label">{{localize "YZECORIOLIS.Bonus"}}</label>
                     <input type="number" name="system.bonus" value="{{system.bonus}}" data-dtype="Number" />
                 </div>
-                <div class="resource numeric-input flexrow">
+                {{#unless combatOverhaul}}
+                <div class="resource numeric-input flexrow core-rules-only">
                     <label class="resource-label">{{localize "YZECORIOLIS.Initiative"}}</label>
                     <input type="number" name="system.initiative" value="{{system.initiative}}" data-dtype="Number" />
                 </div>
+                {{/unless}}
+                {{#if combatOverhaul}}
+                <div class="resource numeric-input flexrow overhaul-rules-only">
+                    <label class="resource-label">{{localize "YZECORIOLIS.ArmorPenetrationShort"}}</label>
+                    <input type="number" min="0" name="system.armorPenetration" value="{{system.armorPenetration}}" data-dtype="Number" />
+                </div>
+                {{/if}}
                 <div class="resource numeric-input flexrow">
                     <label class="resource-label">{{localize "YZECORIOLIS.Damage"}}</label>
                     <input type="number" min="0" name="system.damage" value="{{system.damage}}" data-dtype="Number" />

@@ -191,6 +191,9 @@ async function showChatMessage(chatMsgOptions, resultData, roll) {
     critText: getRollCritText(resultData.rollData),
     damage: getRollDmg(resultData.rollData),
     damageText: getRollDmgText(resultData.rollData),
+    armorPenetration: getRollArmorPenetration(resultData.rollData),
+    damageReduction: getRollDamageReduction(resultData.rollData),
+    combatOverhaul: resultData.rollData.combatOverhaul || false,
     range: getRollRange(resultData.rollData),
     features: getRollFeatures(resultData.rollData),
     itemModifiersBonus: getRollModifiersBonus(resultData.rollData),
@@ -247,6 +250,9 @@ async function updateChatMessage(
     critText: getRollCritText(resultData.rollData),
     damage: getRollDmg(resultData.rollData),
     damageText: getRollDmgText(resultData.rollData),
+    armorPenetration: getRollArmorPenetration(resultData.rollData),
+    damageReduction: getRollDamageReduction(resultData.rollData),
+    combatOverhaul: resultData.rollData.combatOverhaul || false,
     range: getRollRange(resultData.rollData),
     features: getRollFeatures(resultData.rollData),
     itemModifiersBonus: getRollModifiersBonus(resultData.rollData),
@@ -382,6 +388,14 @@ function getRollDmg(rollData) {
 
 function getRollDmgText(rollData) {
   return `${rollData.damageText}`;
+}
+
+function getRollArmorPenetration(rollData) {
+  return `${rollData.armorPenetration || 0}`;
+}
+
+function getRollDamageReduction(rollData) {
+  return `${rollData.damageReduction || 0}`;
 }
 
 function getRollRange(rollData) {

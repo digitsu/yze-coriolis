@@ -7,7 +7,7 @@
         {{#if_eq actorType 'character'}}
           {{#if_eq rollType 'weapon'}}
             <tr>
-              <td colspan="2">{{localize "YZECORIOLIS.Damage"}}: {{damage}} {{#if damageText}}({{damageText}}){{/if}}</td>
+              <td colspan="2">{{localize "YZECORIOLIS.Damage"}}: {{damage}} {{#if damageText}}({{damageText}}){{/if}}{{#if combatOverhaul}}{{#if_gt armorPenetration 0}} | {{localize "YZECORIOLIS.ArmorPenetrationShort"}}: {{armorPenetration}}{{/if_gt}}{{/if}}</td>
             </tr>
             <tr>
               <td colspan="2">{{localize "YZECORIOLIS.Crit"}}: {{#if_gt crit 0}}{{crit}}{{else}}-{{/if_gt}} {{#if critText}}({{critText}}){{/if}}</td>
@@ -44,7 +44,11 @@
           {{/if_eq}}
           <tr>
           {{#if_eq rollType 'armor'}}
+            {{#if combatOverhaul}}
+            <td>{{localize "YZECORIOLIS.DamageReductionShort"}}: {{damageReduction}}</td>
+            {{else}}
             <td>{{localize "YZECORIOLIS.ArmorRating"}}: {{bonus}}</td>
+            {{/if}}
           {{else}}
             <td>{{attributeName}}: {{attribute}}</td>
             <td>{{#if skillName}}{{skillName}}: {{skill}}{{/if}}</td>
@@ -66,7 +70,7 @@
         {{#if_eq actorType 'npc'}}
           {{#if_eq rollType 'weapon'}}
             <tr>
-              <td colspan="2">{{localize "YZECORIOLIS.Damage"}}: {{damage}} {{#if damageText}}({{damageText}}){{/if}}</td>
+              <td colspan="2">{{localize "YZECORIOLIS.Damage"}}: {{damage}} {{#if damageText}}({{damageText}}){{/if}}{{#if combatOverhaul}}{{#if_gt armorPenetration 0}} | {{localize "YZECORIOLIS.ArmorPenetrationShort"}}: {{armorPenetration}}{{/if_gt}}{{/if}}</td>
             </tr>
             <tr>
               <td colspan="2">{{localize "YZECORIOLIS.Crit"}}: {{#if_gt crit 0}}{{crit}}{{else}}-{{/if_gt}} {{#if critText}}({{critText}}){{/if}}</td>
@@ -103,7 +107,11 @@
           {{/if_eq}}
           <tr>
           {{#if_eq rollType 'armor'}}
+            {{#if combatOverhaul}}
+            <td>{{localize "YZECORIOLIS.DamageReductionShort"}}: {{damageReduction}}</td>
+            {{else}}
             <td>{{localize "YZECORIOLIS.ArmorRating"}}: {{bonus}}</td>
+            {{/if}}
           {{else}}
             <td>{{attributeName}}: {{attribute}}</td>
             <td>{{#if skillName}}{{skillName}}: {{skill}}{{/if}}</td>
@@ -124,7 +132,7 @@
       {{else if_eq (AdditionalRollInfos) 'all'}}
           {{#if_eq rollType 'weapon'}}
             <tr>
-              <td colspan="2">{{localize "YZECORIOLIS.Damage"}}: {{damage}} {{#if damageText}}({{damageText}}){{/if}}</td>
+              <td colspan="2">{{localize "YZECORIOLIS.Damage"}}: {{damage}} {{#if damageText}}({{damageText}}){{/if}}{{#if combatOverhaul}}{{#if_gt armorPenetration 0}} | {{localize "YZECORIOLIS.ArmorPenetrationShort"}}: {{armorPenetration}}{{/if_gt}}{{/if}}</td>
             </tr>
             <tr>
               <td colspan="2">{{localize "YZECORIOLIS.Crit"}}: {{#if_gt crit 0}}{{crit}}{{else}}-{{/if_gt}} {{#if critText}}({{critText}}){{/if}}</td>
@@ -161,7 +169,11 @@
           {{/if_eq}}
           <tr>
           {{#if_eq rollType 'armor'}}
+            {{#if combatOverhaul}}
+            <td>{{localize "YZECORIOLIS.DamageReductionShort"}}: {{damageReduction}}</td>
+            {{else}}
             <td>{{localize "YZECORIOLIS.ArmorRating"}}: {{bonus}}</td>
+            {{/if}}
           {{else}}
             <td>{{attributeName}}: {{attribute}}</td>
             <td>{{#if skillName}}{{skillName}}: {{skill}}{{/if}}</td>

@@ -304,9 +304,8 @@ YZECORIOLIS.critTypes = {
 };
 
 YZECORIOLIS.ranges = {
-  contact: "YZECORIOLIS.ContactRange",
+  engaged: "YZECORIOLIS.EngagedRange",
   short: "YZECORIOLIS.ShortRange",
-  close: "YZECORIOLIS.CloseRange",
   medium: "YZECORIOLIS.MediumRange",
   long: "YZECORIOLIS.LongRange",
   extreme: "YZECORIOLIS.ExtremeRange",
