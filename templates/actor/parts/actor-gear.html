@@ -54,6 +54,22 @@
             </li>
             {{/each}}
 
+            {{!-- Primary Weapon Selector --}}
+            {{#if combatOverhaul}}
+            <li class="primary-weapon-row flexrow">
+                <label class="primary-weapon-label">{{localize "YZECORIOLIS.PrimaryWeapon"}}:</label>
+                <select class="primary-weapon-select" name="system.primaryWeapon">
+                    <option value="">-- {{localize "YZECORIOLIS.SelectPrimaryWeapon"}} --</option>
+                    {{#each weapons as |weapon|}}
+                    <option value="{{weapon._id}}" {{#if_eq weapon._id ../system.primaryWeapon}}selected{{/if_eq}}>{{weapon.name}}</option>
+                    {{/each}}
+                    {{#each explosives as |explosive|}}
+                    <option value="{{explosive._id}}" {{#if_eq explosive._id ../system.primaryWeapon}}selected{{/if_eq}}>{{explosive.name}}</option>
+                    {{/each}}
+                </select>
+            </li>
+            {{/if}}
+
             {{!-- setup header for Weapons--}}
             <li class="gear-category-header flexrow">
                 <div class="gear-category-name first">{{localize "YZECORIOLIS.Weapons"}}</div>
