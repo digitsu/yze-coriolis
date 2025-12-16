@@ -25,6 +25,7 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          allowed_tools: "Bash(gh:*),Bash(git:*),Read,Glob,Grep,Edit,Write"
           prompt: |
             Analyze this new issue and:
             1. Comment with your assessment of the problem
@@ -49,6 +50,7 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          allowed_tools: "Bash(gh:*),Bash(git:*),Read,Glob,Grep,Edit,Write"
           claude_args: "--max-turns 10"
 
   # Auto-review incoming PRs
@@ -60,6 +62,7 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          allowed_tools: "Bash(gh:*),Bash(git:*),Read,Glob,Grep"
           prompt: |
             Review this PR for:
             1. Code quality and style consistency
