@@ -60,19 +60,15 @@
 
   <!-- Individual Attack Results -->
   <div class="dice-result full-auto-results">
-    <h4 style="margin-bottom: 0.5em;">{{localize "YZECORIOLIS.FullAutoResults"}}</h4>
     {{#each attacks}}
-    <div class="full-auto-attack-result" style="margin-bottom: 0.5em; padding: 0.3em; border: 1px solid #444; border-radius: 3px;">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <strong>{{localize "YZECORIOLIS.FullAutoAttack"}} {{attackNum}}</strong>
-        {{#if failure}}
-          <span class="dice-total criticalfailure" style="padding: 0.2em 0.5em; font-size: 0.9em;">{{localize "YZECORIOLIS.RollFailure"}}</span>
-        {{else if limitedSuccess}}
-          <span class="dice-total limitedSuccess" style="padding: 0.2em 0.5em; font-size: 0.9em;">{{localize "YZECORIOLIS.RollLimitedSucces"}} ({{successes}})</span>
-        {{else if criticalSuccess}}
-          <span class="dice-total criticalSuccess" style="padding: 0.2em 0.5em; font-size: 0.9em;">{{localize "YZECORIOLIS.RollCriticalSucces"}} ({{successes}})</span>
-        {{/if}}
-      </div>
+    <div class="full-auto-attack-result" style="margin-bottom: 0.3em;">
+      {{#if failure}}
+        <h4 class="dice-total criticalfailure">{{localize "YZECORIOLIS.FullAutoAttack"}} {{attackNum}}: {{localize "YZECORIOLIS.RollFailure"}}</h4>
+      {{else if limitedSuccess}}
+        <h4 class="dice-total limitedSuccess">{{localize "YZECORIOLIS.FullAutoAttack"}} {{attackNum}}: {{localize "YZECORIOLIS.RollLimitedSucces"}} ({{successes}})</h4>
+      {{else if criticalSuccess}}
+        <h4 class="dice-total criticalSuccess">{{localize "YZECORIOLIS.FullAutoAttack"}} {{attackNum}}: {{localize "YZECORIOLIS.RollCriticalSucces"}} ({{successes}})</h4>
+      {{/if}}
       {{{tooltip}}}
     </div>
     {{/each}}
