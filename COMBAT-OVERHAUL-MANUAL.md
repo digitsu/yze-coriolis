@@ -1,0 +1,231 @@
+# Coriolis Combat Overhaul Manual
+
+This document describes the Combat Overhaul rules adaptation for the Coriolis RPG Foundry VTT system. These optional rules provide a more tactical combat experience with additional mechanics for stress, suppression, and action economy.
+
+## Enabling Combat Overhaul
+
+1. Go to **Game Settings** > **Configure Settings**
+2. Find **System Settings** > **Coriolis**
+3. Enable **"Combat Overhaul Rules"**
+
+When enabled, the system will use the alternative combat rules described below.
+
+---
+
+## Features Overview
+
+### 1. D66 Initiative System
+
+Instead of rolling a single die for initiative, Combat Overhaul uses a D66 system:
+
+- Roll 2d6 and read them as tens and ones (e.g., 3 and 5 = 35)
+- Valid values range from 11-66 (no digits of 0)
+- Higher initiative acts first
+- The combat tracker displays initiative as whole numbers
+- GMs can manually edit initiative values in the combat tracker
+
+**How to use:**
+- Add combatants to the combat tracker as normal
+- Click "Roll All" or roll individual initiatives
+- Initiative will be displayed as D66 values (11-66)
+
+---
+
+### 2. Stress Tracking
+
+Characters now track Stress in addition to HP and MP:
+
+- Stress bar appears on the character sheet (below Reputation)
+- Maximum stress is 10 points
+- Stress accumulates from combat situations and failed checks
+- High stress can trigger negative effects
+
+**How to use:**
+- Click on the stress bar segments to increase/decrease stress
+- Stress resets between sessions or during downtime (GM discretion)
+
+---
+
+### 3. Suppression System
+
+When characters take damage, they may become suppressed:
+
+**Suppression States:**
+- **Suppressed**: Character loses their Fast Action for the current round
+- **Pinned Down**: Character loses their Slow Action for the current round
+
+**Suppression Check:**
+After calculating damage, click the "Suppression Check" button to roll:
+- Roll 1d6 + current stress
+- Modifiers apply for weapon features (Stun, Heavy, etc.)
+- Results determine if the target becomes Suppressed or Pinned Down
+
+**Status Display:**
+- Suppressed/Pinned Down status shows on the character sheet
+- Click the X button next to the status to clear it
+- Status automatically clears at the start of a new combat round
+
+---
+
+### 4. Action Economy
+
+Each character has actions per round that are tracked on their sheet:
+
+**Available Actions:**
+- **Slow Action (S)**: One slow action per round (attack, use skill, etc.)
+- **Fast Action (F)**: One fast action per round (move, draw weapon, etc.)
+
+**Trading Actions:**
+- Click the exchange icon to trade your Slow Action for a second Fast Action
+- This gives you two Fast Actions but no Slow Action
+
+**Status Effects on Actions:**
+- **Suppressed**: Lose your Fast Action (shown as "lost")
+- **Pinned Down**: Lose your Slow Action (shown as "lost")
+
+**Action Buttons:**
+- Green = Available
+- Gray with checkmark = Used
+- Orange with exchange icon = Traded
+- Red with X = Lost (due to suppression)
+
+**Reset:**
+- Click the reset button to manually reset actions
+- Actions automatically reset at the start of each combat round
+
+---
+
+### 5. Damage Calculator
+
+Weapon attacks include an integrated damage calculator:
+
+**How to use:**
+1. Roll a weapon attack
+2. If successful, expand the "Damage Calculator" section
+3. Enter **Extra Damage** (successes spent on damage, max = your successes)
+4. Enter **Target DR** (target's Damage Reduction from armor)
+5. Click **Calculate**
+
+**Calculation:**
+- Total Damage = Base Weapon Damage + Extra Damage
+- Effective DR = Target DR - Armor Penetration (minimum 0)
+- Final Damage = Total Damage - Effective DR (minimum 0)
+
+**Critical Hits:**
+- If Final Damage >= Crit Threshold, a critical is triggered
+- Critical severity increases if damage is 2x or 3x the threshold
+
+---
+
+### 6. Damage Application
+
+After calculating damage, you can apply it directly to a target:
+
+**How to use:**
+1. Calculate damage using the Damage Calculator
+2. Select a target from the dropdown (shows combatants or all actors)
+3. Click **Apply Damage**
+4. Target's HP is reduced and a chat message confirms the damage
+
+**Target Selection:**
+- If a combat is active, the dropdown shows all combatants
+- If no combat, it shows all character and NPC actors
+- Targets are sorted alphabetically
+
+---
+
+### 7. Full Auto Attacks
+
+Automatic weapons can fire in Full Auto mode for multiple attacks:
+
+**How it works:**
+- Full Auto fires 3 attacks (or 4 with High Capacity weapon feature)
+- Each attack rolls separately at -2 modifier (negated by Machinegunner talent)
+- Each attack can target the same or different enemies
+- Attacks cannot be pushed (no "Pray to the Icons")
+
+**Using Full Auto:**
+1. Select a weapon with the Automatic feature
+2. Choose "Full Auto" when rolling the attack
+3. The system rolls all attacks and displays results
+4. Use the damage calculator for each hit
+
+**Damage Application for Full Auto:**
+- Each hit has its own target selector and damage inputs
+- Select different targets for each hit if desired
+- Click individual "Apply Damage" buttons, or
+- Click "Apply All Damage" to apply all calculated damage at once
+
+---
+
+### 8. Armor and Damage Reduction
+
+Combat Overhaul changes how armor works:
+
+**Core Rules (when Combat Overhaul is OFF):**
+- Armor provides Armor Rating added to defense rolls
+
+**Combat Overhaul (when ON):**
+- Armor provides Damage Reduction (DR) that subtracts from incoming damage
+- Weapons may have Armor Penetration (AP) that reduces effective DR
+
+**Weapon Stats:**
+- **Damage**: Base damage dealt
+- **AP (Armor Penetration)**: Reduces target's effective DR
+- **Crit**: Damage threshold to trigger critical injuries
+
+---
+
+## Character Sheet Changes
+
+When Combat Overhaul is enabled, the character sheet displays:
+
+1. **Stress Bar**: Below the Reputation bar
+2. **Suppression Status**: Shows when Suppressed or Pinned Down
+3. **Action Economy**: Shows Slow/Fast action buttons with trade and reset options
+
+---
+
+## Migration
+
+When enabling Combat Overhaul, the system automatically migrates existing data:
+
+- Weapons with "Contact" or "Close" range become "Engaged"
+- Weapons get Armor Penetration field (default 0)
+- Armor gets Damage Reduction field (set equal to Armor Rating)
+- Characters get Stress tracking fields
+- Characters get Action tracking fields
+
+---
+
+## Tips for GMs
+
+1. **Suppression Checks**: Use these after significant hits to add tension
+2. **Action Economy**: Track actions during combat to enforce tactical choices
+3. **Stress**: Award stress for scary situations, not just damage
+4. **Full Auto**: Remember the -2 penalty is significant; Machinegunner talent is valuable
+5. **Target Selection**: The dropdown makes damage application quick during combat
+
+---
+
+## Keyboard Shortcuts
+
+- **T** (while hovering token): Target/untarget for damage application
+- Standard Foundry combat tracker shortcuts apply
+
+---
+
+## Troubleshooting
+
+**CSS changes not visible:**
+- Check if other modules (like Coriolis UI) are overriding styles
+- Disable conflicting UI modules if needed
+
+**Target dropdown empty:**
+- Ensure actors exist in the world
+- Start a combat encounter to populate from combatants
+
+**Damage not applying:**
+- Verify you've clicked Calculate first
+- Ensure a target is selected
+- Check that Final Damage is greater than 0
