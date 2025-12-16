@@ -100,6 +100,10 @@
               <strong>{{localize "YZECORIOLIS.FullAutoAttack"}} {{attackNum}}</strong> ({{successes}} {{localize "YZECORIOLIS.Successes"}})
               <div class="damage-calc-inputs" style="margin-top: 0.3em;">
                 <div class="flexrow" style="gap: 0.5em; align-items: center;">
+                  <label style="flex: 1;">{{localize "YZECORIOLIS.Target"}}:</label>
+                  <select class="damage-target-select" style="flex: 1;"></select>
+                </div>
+                <div class="flexrow" style="gap: 0.5em; align-items: center; margin-top: 0.3em;">
                   <label style="flex: 1;">{{localize "YZECORIOLIS.ExtraDamage"}}:</label>
                   <input type="number" class="calc-extra-damage" value="0" min="0" max="{{successes}}" style="width: 3em; text-align: center;">
                 </div>
@@ -118,6 +122,9 @@
                 <div class="result-critical" style="display: none; text-align: center; margin-top: 0.3em; padding: 0.2em; background: #8b0000; color: white; font-weight: bold; font-size: 0.9em;">
                   {{localize "YZECORIOLIS.CriticalTriggered"}}
                 </div>
+                <button type="button" class="apply-single-damage-btn" style="margin-top: 0.3em; width: 100%; font-size: 0.85em;">
+                  <i class="fas fa-heart-broken"></i> {{localize "YZECORIOLIS.ApplyDamage"}}
+                </button>
               </div>
             </div>
             {{/unless}}
@@ -126,6 +133,9 @@
           <input type="hidden" class="calc-armor-pen" value="{{armorPenetration}}">
           <input type="hidden" class="calc-crit-threshold" value="{{crit}}">
           <button type="button" class="calc-all-damage-btn" style="margin-top: 0.5em; width: 100%;">{{localize "YZECORIOLIS.CalculateAll"}}</button>
+          <button type="button" class="apply-all-damage-btn" style="margin-top: 0.5em; width: 100%; display: none;">
+            <i class="fas fa-heart-broken"></i> {{localize "YZECORIOLIS.ApplyAllDamage"}}
+          </button>
           <button type="button" class="roll-suppression-btn" style="margin-top: 0.5em; width: 100%; display: none;">
             <i class="fas fa-shield-alt"></i> {{localize "YZECORIOLIS.SuppressionCheck"}}
           </button>

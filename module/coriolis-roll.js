@@ -597,8 +597,167 @@ export async function coriolisChatListeners(html) {
       }
     });
 
-    // Show suppression check button
+    // Show suppression check button and Apply All Damage button
     container.find(".roll-suppression-btn").show();
+    container.find(".apply-all-damage-btn").show();
+  });
+
+  // Populate target selectors with available combatants
+  populateTargetSelectors(html);
+
+  // Apply Damage button listener (regular rolls)
+  $(html).on("click", ".apply-damage-btn", async (ev) => {
+    const button = $(ev.currentTarget);
+    const container = button.closest(".damage-calculator");
+    const targetSelect = container.find(".damage-target-select");
+    const targetId = targetSelect.val();
+    const finalDamage = parseInt(container.find(".result-final-damage").text()) || 0;
+
+    if (!targetId) {
+      ui.notifications.warn(game.i18n.localize("YZECORIOLIS.NoTargetSelected"));
+      return;
+    }
+    if (finalDamage <= 0) {
+      ui.notifications.warn(game.i18n.localize("YZECORIOLIS.NoDamageToApply"));
+      return;
+    }
+
+    await applyDamageToActor(targetId, finalDamage);
+  });
+
+  // Apply Single Damage button listener (Full Auto individual hits)
+  $(html).on("click", ".apply-single-damage-btn", async (ev) => {
+    const button = $(ev.currentTarget);
+    const hitCalc = button.closest(".full-auto-hit-calc");
+    const targetSelect = hitCalc.find(".damage-target-select");
+    const targetId = targetSelect.val();
+    const finalDamage = parseInt(hitCalc.find(".result-final-damage").text()) || 0;
+
+    if (!targetId) {
+      ui.notifications.warn(game.i18n.localize("YZECORIOLIS.NoTargetSelected"));
+      return;
+    }
+    if (finalDamage <= 0) {
+      ui.notifications.warn(game.i18n.localize("YZECORIOLIS.NoDamageToApply"));
+      return;
+    }
+
+    await applyDamageToActor(targetId, finalDamage);
+  });
+
+  // Apply All Damage button listener (Full Auto - apply all calculated damage)
+  $(html).on("click", ".apply-all-damage-btn", async (ev) => {
+    const button = $(ev.currentTarget);
+    const container = button.closest(".full-auto-damage-section");
+
+    // Collect all hits with targets and damage
+    const hits = [];
+    container.find(".full-auto-hit-calc").each(function() {
+      const hitCalc = $(this);
+      const resultDiv = hitCalc.find(".damage-calc-result");
+      if (resultDiv.is(":visible")) {
+        const targetId = hitCalc.find(".damage-target-select").val();
+        const finalDamage = parseInt(hitCalc.find(".result-final-damage").text()) || 0;
+        if (targetId && finalDamage > 0) {
+          hits.push({ targetId, finalDamage });
+        }
+      }
+    });
+
+    if (hits.length === 0) {
+      ui.notifications.warn(game.i18n.localize("YZECORIOLIS.NoDamageToApply"));
+      return;
+    }
+
+    // Apply damage to each target
+    for (const hit of hits) {
+      await applyDamageToActor(hit.targetId, hit.finalDamage);
+    }
+  });
+}
+
+/**
+ * Populate target selector dropdowns with available combatants
+ * @param {jQuery} html - The chat message HTML
+ */
+function populateTargetSelectors(html) {
+  const selects = $(html).find(".damage-target-select");
+  if (selects.length === 0) return;
+
+  // Get available targets from combat or all actors
+  let targets = [];
+
+  // First, check if there's an active combat
+  if (game.combat) {
+    for (const combatant of game.combat.combatants) {
+      if (combatant.actor && (combatant.actor.type === "character" || combatant.actor.type === "npc")) {
+        targets.push({
+          id: combatant.actor.id,
+          name: combatant.actor.name,
+          img: combatant.actor.img
+        });
+      }
+    }
+  }
+
+  // If no combat, fall back to all character/npc actors
+  if (targets.length === 0) {
+    for (const actor of game.actors) {
+      if (actor.type === "character" || actor.type === "npc") {
+        targets.push({
+          id: actor.id,
+          name: actor.name,
+          img: actor.img
+        });
+      }
+    }
+  }
+
+  // Sort alphabetically
+  targets.sort((a, b) => a.name.localeCompare(b.name));
+
+  // Populate each select
+  selects.each(function() {
+    const select = $(this);
+    select.empty();
+    select.append('<option value="">-- Select Target --</option>');
+    for (const target of targets) {
+      select.append(`<option value="${target.id}">${target.name}</option>`);
+    }
+  });
+}
+
+/**
+ * Apply damage to an actor by reducing their HP
+ * @param {string} actorId - The actor's ID
+ * @param {number} damage - The amount of damage to apply
+ */
+async function applyDamageToActor(actorId, damage) {
+  const actor = game.actors.get(actorId);
+  if (!actor) {
+    ui.notifications.error("Actor not found");
+    return;
+  }
+
+  const currentHP = actor.system.hitPoints?.value ?? 0;
+  const newHP = Math.max(0, currentHP - damage);
+
+  await actor.update({ "system.hitPoints.value": newHP });
+
+  // Show notification
+  const message = game.i18n.format("YZECORIOLIS.DamageApplied", {
+    damage: damage,
+    name: actor.name
+  });
+  ui.notifications.info(message);
+
+  // Also post to chat for visibility
+  ChatMessage.create({
+    content: `<div class="yzecoriolis damage-applied">
+      <strong>${actor.name}</strong> takes <strong>${damage}</strong> damage!
+      <br><em>(HP: ${currentHP} → ${newHP})</em>
+    </div>`,
+    speaker: { alias: game.i18n.localize("YZECORIOLIS.DamageCalculator") }
   });
 }
 /**
