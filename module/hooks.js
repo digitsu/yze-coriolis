@@ -58,6 +58,7 @@ Hooks.on("renderCombatTracker", (app, html, combatInfo) => {
     $(html).find(".combatant").each((i, el) => {
       const id = el.dataset.combatantId;
       const combatant = currentCombat.combatants.find((c) => c.id === id);
+      const actor = combatant?.actor;
       const initDiv = el.getElementsByClassName("token-initiative")[0];
 
       if (combatant.initiative != null) {
@@ -79,9 +80,142 @@ Hooks.on("renderCombatTracker", (app, html, combatInfo) => {
           await currentCombat.setInitiative(combatantId, inputElement.value);
         });
       }
+
+      // Combat Overhaul: Add action buttons and quick attack to combatant row
+      if (combatOverhaul && actor && (actor.type === "character" || actor.type === "npc")) {
+        // Check if user can control this actor
+        const canControl = actor.isOwner || game.user.isGM;
+
+        // Create action buttons container
+        const actionsHtml = createCombatTrackerActions(actor, canControl);
+
+        // Insert after the combatant controls
+        const controlsDiv = el.querySelector(".combatant-controls");
+        if (controlsDiv) {
+          const actionsDiv = document.createElement("div");
+          actionsDiv.className = "combatant-actions";
+          actionsDiv.innerHTML = actionsHtml;
+          controlsDiv.parentNode.insertBefore(actionsDiv, controlsDiv);
+
+          // Add event listeners for action buttons
+          setupCombatTrackerActionListeners(actionsDiv, actor);
+        }
+      }
     });
   }
 });
+
+/**
+ * Create HTML for combat tracker action buttons
+ */
+function createCombatTrackerActions(actor, canControl) {
+  const actions = actor.system.actions || {};
+  const suppressed = actor.system.suppressed;
+  const pinnedDown = actor.system.pinnedDown;
+
+  // Determine button states
+  let slowClass = "available";
+  let slowIcon = "fa-clock";
+  if (actions.tradedSlow) {
+    slowClass = "traded";
+    slowIcon = "fa-exchange-alt";
+  } else if (pinnedDown) {
+    slowClass = "lost";
+    slowIcon = "fa-ban";
+  } else if (actions.slowUsed) {
+    slowClass = "used";
+    slowIcon = "fa-check";
+  }
+
+  let fastClass = "available";
+  let fastIcon = "fa-bolt";
+  if (suppressed) {
+    fastClass = "lost";
+    fastIcon = "fa-ban";
+  } else if (actions.fastUsed) {
+    fastClass = "used";
+    fastIcon = "fa-check";
+  }
+
+  const disabled = canControl ? "" : "disabled";
+
+  return `
+    <div class="ct-actions-row">
+      <button type="button" class="ct-action-btn ${slowClass}" data-action="slow" ${disabled} title="${game.i18n.localize("YZECORIOLIS.ActionSlowShort")}">
+        <i class="fas ${slowIcon}"></i>
+      </button>
+      <button type="button" class="ct-action-btn ${fastClass}" data-action="fast" ${disabled} title="${game.i18n.localize("YZECORIOLIS.ActionFastShort")}">
+        <i class="fas ${fastIcon}"></i>
+      </button>
+      <button type="button" class="ct-quick-attack" ${disabled} title="${game.i18n.localize("YZECORIOLIS.QuickAttack")}">
+        <i class="fas fa-crosshairs"></i>
+      </button>
+    </div>
+  `;
+}
+
+/**
+ * Setup event listeners for combat tracker action buttons
+ */
+function setupCombatTrackerActionListeners(container, actor) {
+  // Slow action button
+  container.querySelector('[data-action="slow"]')?.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    const actions = actor.system.actions || {};
+    if (actor.system.pinnedDown || actions.tradedSlow) return;
+    await actor.update({ "system.actions.slowUsed": !actions.slowUsed });
+  });
+
+  // Fast action button
+  container.querySelector('[data-action="fast"]')?.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    const actions = actor.system.actions || {};
+    if (actor.system.suppressed) return;
+    await actor.update({ "system.actions.fastUsed": !actions.fastUsed });
+  });
+
+  // Quick attack button
+  container.querySelector('.ct-quick-attack')?.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    await performQuickAttack(actor);
+  });
+}
+
+/**
+ * Perform a quick attack with the actor's primary weapon
+ */
+async function performQuickAttack(actor) {
+  const primaryWeaponId = actor.system.primaryWeapon;
+
+  if (!primaryWeaponId) {
+    ui.notifications.warn(game.i18n.localize("YZECORIOLIS.NoPrimaryWeapon"));
+    return;
+  }
+
+  const weapon = actor.items.get(primaryWeaponId);
+  if (!weapon) {
+    ui.notifications.warn(game.i18n.localize("YZECORIOLIS.NoPrimaryWeapon"));
+    return;
+  }
+
+  // Trigger the weapon roll - this mimics clicking the weapon icon on the sheet
+  const isMelee = weapon.system.melee;
+  const skillKey = isMelee ? "meleecombat" : "rangedcombat";
+  const attributeKey = isMelee ? "strength" : "agility";
+
+  // Import and call the roll function
+  const { coriolisRoll } = await import("./coriolis-roll.js");
+
+  coriolisRoll({
+    rollType: "weapon",
+    label: weapon.name,
+    skillKey: skillKey,
+    attributeKey: attributeKey,
+    bonus: weapon.system.bonus,
+    automaticWeapon: weapon.system.automatic,
+    actor: actor
+  });
+}
 
 // Combat Overhaul: Reset actions at the start of a new combat round
 Hooks.on("updateCombat", async (combat, updateData, options, userId) => {

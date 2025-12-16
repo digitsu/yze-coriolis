@@ -158,7 +158,50 @@ Automatic weapons can fire in Full Auto mode for multiple attacks:
 
 ---
 
-### 8. Armor and Damage Reduction
+### 8. Combat Tracker Integration
+
+Combat Overhaul adds action buttons and quick attack directly to the combat tracker, eliminating the need to keep character sheets open during combat.
+
+**Combat Tracker Buttons:**
+Each combatant row displays three buttons:
+- **S (Slow)**: Toggle slow action used/available
+- **F (Fast)**: Toggle fast action used/available
+- **Crosshairs**: Quick Attack with primary weapon
+
+**Button Colors:**
+- Green = Available
+- Gray = Used
+- Orange = Traded (slow traded for fast)
+- Red = Lost (due to suppression)
+
+**Permissions:**
+- Players can use buttons for their own characters
+- GMs can use buttons for all combatants
+
+---
+
+### 9. Primary Weapon & Quick Attack
+
+Set a primary weapon for fast attacks from the combat tracker:
+
+**Setting Primary Weapon:**
+1. Open the character's Gear tab
+2. Find the "Primary Weapon" dropdown (appears when Combat Overhaul is enabled)
+3. Select the weapon you want as your default attack
+
+**Using Quick Attack:**
+1. In the combat tracker, click the crosshairs icon next to your combatant
+2. The system automatically rolls an attack with your primary weapon
+3. The roll uses the appropriate skill (Ranged Combat or Melee Combat) based on weapon type
+
+**Notes:**
+- If no primary weapon is set, clicking Quick Attack shows a warning
+- Primary weapon can be any weapon or explosive in your inventory
+- Change your primary weapon anytime from the Gear tab
+
+---
+
+### 10. Armor and Damage Reduction
 
 Combat Overhaul changes how armor works:
 
@@ -183,6 +226,7 @@ When Combat Overhaul is enabled, the character sheet displays:
 1. **Stress Bar**: Below the Reputation bar
 2. **Suppression Status**: Shows when Suppressed or Pinned Down
 3. **Action Economy**: Shows Slow/Fast action buttons with trade and reset options
+4. **Primary Weapon Selector**: Dropdown in Gear tab to select default weapon for quick attacks
 
 ---
 
@@ -229,3 +273,13 @@ When enabling Combat Overhaul, the system automatically migrates existing data:
 - Verify you've clicked Calculate first
 - Ensure a target is selected
 - Check that Final Damage is greater than 0
+
+**Quick Attack not working:**
+- Ensure a primary weapon is selected in the Gear tab
+- Check that the weapon still exists in the actor's inventory
+- Verify Combat Overhaul is enabled in system settings
+
+**Combat tracker buttons not appearing:**
+- Verify Combat Overhaul is enabled
+- Check that the combatant is a character or NPC (not a ship)
+- Refresh the combat tracker by toggling it closed and open

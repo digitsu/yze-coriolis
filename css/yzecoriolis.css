@@ -2109,6 +2109,28 @@ amending some classes to help official modules work in v13
 .yzecoriolis.sheet.actor .sheet-body .gear-list .gear-category-header:first-of-type {
   margin-top: 0px;
 }
+.yzecoriolis.sheet.actor .sheet-body .gear-list .primary-weapon-row {
+  background: rgba(50, 80, 120, 0.3);
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  align-items: center;
+}
+.yzecoriolis.sheet.actor .sheet-body .gear-list .primary-weapon-label {
+  font-family: "Cairo";
+  color: #9fb0ed;
+  font-size: 14px;
+  margin-right: 10px;
+}
+.yzecoriolis.sheet.actor .sheet-body .gear-list .primary-weapon-select {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #666;
+  border-radius: 3px;
+  color: #e5e5e5;
+  padding: 3px 5px;
+  font-family: "Cairo";
+}
 .yzecoriolis.sheet.actor .sheet-body .gear-list .gear-category-name {
   font-size: 14px;
   margin: 0px 0px 0px 5px;
@@ -3313,4 +3335,85 @@ select[name="core.uiConfig.colorScheme.applications"]{
   option[value=""] {
     display: none;
   }
+}
+
+/* ----------------------------------------- */
+/*  Combat Tracker Overhaul Buttons          */
+/* ----------------------------------------- */
+.combatant-actions {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+.combatant-actions .ct-actions-row {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+.combatant-actions .ct-action-btn {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #444;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.combatant-actions .ct-action-btn.available {
+  background: rgba(0, 100, 0, 0.6);
+  color: #8f8;
+  border-color: #4a4;
+}
+.combatant-actions .ct-action-btn.available:hover {
+  background: rgba(0, 100, 0, 0.8);
+}
+.combatant-actions .ct-action-btn.used {
+  background: rgba(80, 80, 80, 0.6);
+  color: #aaa;
+  border-color: #666;
+}
+.combatant-actions .ct-action-btn.used:hover {
+  background: rgba(80, 80, 80, 0.8);
+}
+.combatant-actions .ct-action-btn.traded {
+  background: rgba(100, 80, 0, 0.6);
+  color: #da6;
+  border-color: #a84;
+}
+.combatant-actions .ct-action-btn.lost {
+  background: rgba(100, 0, 0, 0.6);
+  color: #a66;
+  border-color: #844;
+  cursor: not-allowed;
+}
+.combatant-actions .ct-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.combatant-actions .ct-quick-attack {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #444;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: rgba(150, 50, 0, 0.6);
+  color: #ffa500;
+  border-color: #a64;
+  margin-left: 3px;
+}
+.combatant-actions .ct-quick-attack:hover {
+  background: rgba(150, 50, 0, 0.8);
+  color: #ffcc00;
+}
+.combatant-actions .ct-quick-attack:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
