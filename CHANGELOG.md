@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.1](https://github.com/digitsu/yze-coriolis-overhaul/compare/v4.2.0...v4.2.1) (2026-01-29)
+
+
+### Bug Fixes
+
+* update Foundry API namespace from "yzecoriolis" to "yze-coriolis-overhaul" ([dede902](https://github.com/digitsu/yze-coriolis-overhaul/commit/dede90269acc28b91701c93584a8c41cb7cee86f))
+
 ## [4.2.0](https://github.com/digitsu/yze-coriolis-overhaul/compare/v4.1.0...v4.2.0) (2026-01-13)
 
 

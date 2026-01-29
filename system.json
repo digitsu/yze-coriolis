@@ -2,7 +2,7 @@
     "id": "yze-coriolis-overhaul",
     "title": "Coriolis Reloaded: Combat Overhaul",
     "description": "Enhanced Coriolis system for Foundry VTT featuring the optional Combat Overhaul rules from Coriolis Reloaded. Includes action economy tracking, stress mechanics, damage reduction, autofire, suppression, and D66 initiative. Fork of yzecoriolis by Alex Okafor and Winks.",
-    "version": "4.2.0",
+    "version": "4.2.1",
     "compatibility": {
         "minimum": "13",
         "verified": "13",
@@ -84,5 +84,5 @@
     "license": "LICENSE",
     "protected": false,
     "manifest": "https://github.com/digitsu/yze-coriolis-overhaul/releases/latest/download/system.json",
-    "download": "https://github.com/digitsu/yze-coriolis-overhaul/releases/download/v4.2.0/yze-coriolis-overhaul.zip"
+    "download": "https://github.com/digitsu/yze-coriolis-overhaul/releases/download/v4.2.1/yze-coriolis-overhaul.zip"
 }
