@@ -1,5 +1,5 @@
 function isCustomJournal(entity) {
-  const importPath = entity.getFlag("yzecoriolis", "customJournal");
+  const importPath = entity.getFlag("yze-coriolis-overhaul", "customJournal");
   if (!importPath) {
     return false;
   }

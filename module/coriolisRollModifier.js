@@ -5,7 +5,7 @@ export class CoriolisModifierDialog extends FormApplication {
       super();
       this.rollData = rollData;
       this.chatOptions = chatOptions;
-      this.rollVisibility = game.settings.get("yzecoriolis", "RollVisibility");
+      this.rollVisibility = game.settings.get("yze-coriolis-overhaul", "RollVisibility");
       this.rollMode = game.settings.get("core", "rollMode");
       this.isAutomatic = rollData.isAutomatic;
       this.automaticFire = rollData.automaticFire;

@@ -74,7 +74,7 @@ export class yzecoriolisItem extends Item {
       }
     }
 
-    const combatOverhaul = game.settings.get("yzecoriolis", "combatOverhaul");
+    const combatOverhaul = game.settings.get("yze-coriolis-overhaul", "combatOverhaul");
     const rollData = {
       rollType: rollType,
       actorType: this.actor.type,

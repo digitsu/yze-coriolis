@@ -101,7 +101,7 @@ export class yzecoriolisActorSheet extends ActorSheet {
         sysData.stress?.value || 0,
         sysData.stress?.max || 10
       ),
-      combatOverhaul: game.settings.get("yzecoriolis", "combatOverhaul"),
+      combatOverhaul: game.settings.get("yze-coriolis-overhaul", "combatOverhaul"),
 
       // we augment the sheet with our 'current' option so that the selection menu
       // can be driven by it.
@@ -570,7 +570,7 @@ export class yzecoriolisActorSheet extends ActorSheet {
       }
     }
 
-    const combatOverhaul = game.settings.get("yzecoriolis", "combatOverhaul");
+    const combatOverhaul = game.settings.get("yze-coriolis-overhaul", "combatOverhaul");
     const rollData = {
       actorType: this.actor.type,
       rollType: dataset.rolltype,
@@ -629,7 +629,7 @@ export class yzecoriolisActorSheet extends ActorSheet {
       let div = $(
         `<div class="item-summary"><div class="item-summary-wrapper"><div>${chatData.description}</div></div></div>`
       );
-      if (!game.settings.get("yzecoriolis", "AlwaysShowFeatures")) {
+      if (!game.settings.get("yze-coriolis-overhaul", "AlwaysShowFeatures")) {
         let props = $(`<div class="item-properties"></div>`);
         chatData.properties.forEach((p) =>
           props.append(`<span class="tag">${p}</span>`)

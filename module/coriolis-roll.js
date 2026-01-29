@@ -219,7 +219,7 @@ async function showChatMessage(chatMsgOptions, resultData, roll) {
   chatMsgOptions["rolls"] = [roll];
   const msg = await ChatMessage.create(chatMsgOptions);
   // attach the results to the chat message so we can push later if needed.
-  await msg.setFlag("yzecoriolis", "results", chatData.results);
+  await msg.setFlag("yze-coriolis-overhaul", "results", chatData.results);
   return msg;
 }
 
@@ -455,7 +455,7 @@ export async function coriolisChatListeners(html) {
     let button = $(ev.currentTarget),
       messageId = button.parents(".message").attr("data-message-id"),
       message = game.messages.get(messageId);
-    let results = message.getFlag("yzecoriolis", "results");
+    let results = message.getFlag("yze-coriolis-overhaul", "results");
     console.log(message);
     let originalRoll = message.rolls[0]; // TODO: handle this in a safer manner.
     if (message.flags.data?.results.pushed) {
@@ -1066,7 +1066,7 @@ async function showFullAutoMessage(chatMsgOptions, resultData, rolls) {
   chatMsgOptions["content"] = html;
   chatMsgOptions["rolls"] = rolls;
   const msg = await ChatMessage.create(chatMsgOptions);
-  await msg.setFlag("yzecoriolis", "results", chatData.results);
+  await msg.setFlag("yze-coriolis-overhaul", "results", chatData.results);
   return msg;
 }
 

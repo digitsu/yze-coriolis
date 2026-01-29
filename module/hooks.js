@@ -8,8 +8,8 @@ Hooks.on("updateUser", (entity, delta, options, userId) => {
   // we avoid any null sets because we are just doing a clearing of the flag
   // before setting it to a valid value.
   const isSettingDP =
-    hasProperty(delta, "flags.yzecoriolis.darknessPoints") &&
-    delta.flags.yzecoriolis.darknessPoints !== null;
+    hasProperty(delta, "flags.yze-coriolis-overhaul.darknessPoints") &&
+    delta.flags["yze-coriolis-overhaul"]?.darknessPoints !== null;
 
   if (options.diff && isSettingDP) {
     if (game.user.isGM) {
@@ -54,7 +54,7 @@ Hooks.on("renderDialog", (dialog, html) => {
 Hooks.on("renderCombatTracker", (app, html, combatInfo) => {
   const currentCombat = combatInfo.combat;
   if (currentCombat) {
-    const combatOverhaul = game.settings.get("yzecoriolis", "combatOverhaul");
+    const combatOverhaul = game.settings.get("yze-coriolis-overhaul", "combatOverhaul");
 
     $(html).find(".combatant").each((i, el) => {
       const id = el.dataset.combatantId;
@@ -256,7 +256,7 @@ async function performQuickAttack(actor) {
     itemModifiers = actorData.itemModifiers[attributeKey];
   }
 
-  const combatOverhaul = game.settings.get("yzecoriolis", "combatOverhaul");
+  const combatOverhaul = game.settings.get("yze-coriolis-overhaul", "combatOverhaul");
 
   const rollData = {
     actorType: actor.type,
@@ -302,7 +302,7 @@ async function performQuickAttack(actor) {
 Hooks.on("updateCombat", async (combat, updateData, options, userId) => {
   // Only process if round changed and Combat Overhaul is enabled
   if (!("round" in updateData)) return;
-  if (!game.settings.get("yzecoriolis", "combatOverhaul")) return;
+  if (!game.settings.get("yze-coriolis-overhaul", "combatOverhaul")) return;
   if (!game.user.isGM) return;
 
   // Reset actions for all combatants when a new round starts

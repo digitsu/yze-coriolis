@@ -10,7 +10,7 @@ export const registerSystemSettings = function () {
   /**
    * Track the system version upon which point a migration was last applied
    */
-  game.settings.register("yzecoriolis", "systemMigrationVersion", {
+  game.settings.register("yze-coriolis-overhaul", "systemMigrationVersion", {
     name: "System Migration Version",
     scope: "world",
     config: false,
@@ -19,7 +19,7 @@ export const registerSystemSettings = function () {
   });
 
   // register the darkness points for the world
-  game.settings.register("yzecoriolis", "darknessPoints", {
+  game.settings.register("yze-coriolis-overhaul", "darknessPoints", {
     name: game.i18n.localize("YZECORIOLIS.DarknessPoints"),
     scope: "world",
     config: false,
@@ -28,7 +28,7 @@ export const registerSystemSettings = function () {
   });
 
   // Combat Overhaul Rules Toggle
-  game.settings.register("yzecoriolis", "combatOverhaul", {
+  game.settings.register("yze-coriolis-overhaul", "combatOverhaul", {
     name: game.i18n.localize("YZECORIOLIS.SettingCombatOverhaul"),
     hint: game.i18n.localize("YZECORIOLIS.SettingCombatOverhaulHint"),
     scope: "world",
@@ -38,7 +38,7 @@ export const registerSystemSettings = function () {
     onChange: debouncedReload,
   });
 
-  game.settings.register("yzecoriolis", "maxEPTokensAllowed", {
+  game.settings.register("yze-coriolis-overhaul", "maxEPTokensAllowed", {
     name: game.i18n.localize("YZECORIOLIS.SettingMaxEnergyPoints"),
     scope: "world",
     config: true,
@@ -46,7 +46,7 @@ export const registerSystemSettings = function () {
     default: 10,
   });
 
-  game.settings.register("yzecoriolis", "firstLaunch", {
+  game.settings.register("yze-coriolis-overhaul", "firstLaunch", {
     name: "Onboarding",
     scope: "world",
     config: false,
@@ -54,7 +54,7 @@ export const registerSystemSettings = function () {
     default: false,
   });
 
-  game.settings.register("yzecoriolis", "AlwaysShowFeatures", {
+  game.settings.register("yze-coriolis-overhaul", "AlwaysShowFeatures", {
     name: game.i18n.localize("YZECORIOLIS.SettingAlwaysShowFeatures"),
     hint: game.i18n.localize("YZECORIOLIS.SettingAlwaysShowFeaturesHint"),
     scope: "world",
@@ -64,7 +64,7 @@ export const registerSystemSettings = function () {
     onChange: debouncedReload,
   });
 
-  game.settings.register("yzecoriolis", "AdditionalRollInfos", {
+  game.settings.register("yze-coriolis-overhaul", "AdditionalRollInfos", {
     name: game.i18n.localize("YZECORIOLIS.SettingAdditionalRollInfos"),
     hint: game.i18n.localize("YZECORIOLIS.SettingAdditionalRollInfosHint"),
     scope: "world",
@@ -79,7 +79,7 @@ export const registerSystemSettings = function () {
     default: "all",
   });
 
-  game.settings.register("yzecoriolis", "DarknessPointsVisibility", {
+  game.settings.register("yze-coriolis-overhaul", "DarknessPointsVisibility", {
     name: game.i18n.localize("YZECORIOLIS.SettingDarknessPointsVisibility"),
     hint: game.i18n.localize("YZECORIOLIS.SettingDarknessPointsVisibilityHint"),
     scope: "world",
@@ -89,7 +89,7 @@ export const registerSystemSettings = function () {
     onChange: debouncedReload,
   });
 
-  game.settings.register("yzecoriolis", "RollVisibility", {
+  game.settings.register("yze-coriolis-overhaul", "RollVisibility", {
     name: game.i18n.localize("YZECORIOLIS.SettingRollVisibility"),
     hint: game.i18n.localize("YZECORIOLIS.SettingRollVisibilityHint"),
     scope: "world",

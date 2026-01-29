@@ -42,7 +42,7 @@ export class yzecoriolisItemSheet extends ItemSheet {
         async: true,
       }
     );
-    const combatOverhaul = game.settings.get("yzecoriolis", "combatOverhaul");
+    const combatOverhaul = game.settings.get("yze-coriolis-overhaul", "combatOverhaul");
     const sheetData = {
       editable: baseData.editable,
       owner: baseData.item.isOwner,

@@ -64,7 +64,7 @@ export const migrateWorld = async function () {
 
   // Set the migration as complete
   await game.settings.set(
-    "yzecoriolis",
+    "yze-coriolis-overhaul",
     "systemMigrationVersion",
     game.system.version
   );
@@ -330,11 +330,11 @@ const migrateDarknessPoints = async function () {
   if (!game.user.isGM) {
     return;
   }
-  let dpPoints = game.settings.get("yzecoriolis", "darknessPoints");
+  let dpPoints = game.settings.get("yze-coriolis-overhaul", "darknessPoints");
   const MIGRATED_VALUE = -42;
   if (dpPoints !== MIGRATED_VALUE) {
     await addDarknessPoints(dpPoints);
-    await game.settings.set("yzecoriolis", "darknessPoints", MIGRATED_VALUE);
+    await game.settings.set("yze-coriolis-overhaul", "darknessPoints", MIGRATED_VALUE);
   }
 };
 

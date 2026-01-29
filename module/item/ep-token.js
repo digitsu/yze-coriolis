@@ -138,7 +138,7 @@ export const getMaxAllowedEPTokens = (shipEntity) => {
   }
   // use the globally set maximum
   // TODO: deprecate this at a future date.
-  return game.settings.get("yzecoriolis", "maxEPTokensAllowed");
+  return game.settings.get("yze-coriolis-overhaul", "maxEPTokensAllowed");
 };
 
 /**

@@ -38,7 +38,7 @@ async function decrementDarknessPoint() {
 
 function getDarknessPointsForUserID(userID) {
   let user = game.users.get(userID);
-  let dPoints = user.getFlag("yzecoriolis", "darknessPoints");
+  let dPoints = user.getFlag("yze-coriolis-overhaul", "darknessPoints");
   if (!dPoints) {
     dPoints = {
       value: 0,
@@ -49,7 +49,7 @@ function getDarknessPointsForUserID(userID) {
 
 async function setDarknessPointsForUser(userID, dPoints) {
   let user = game.users.get(userID);
-  await user.setFlag("yzecoriolis", "darknessPoints", dPoints);
+  await user.setFlag("yze-coriolis-overhaul", "darknessPoints", dPoints);
 }
 
 function getDarknessPoints() {

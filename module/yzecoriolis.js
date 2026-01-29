@@ -42,7 +42,7 @@ Hooks.once("init", async function () {
   // JournalEntry
   DocumentSheetConfig.registerSheet(
     foundry.appv1.sheets.JournalSheet,
-    "yzecoriolis",
+    "yze-coriolis-overhaul",
     coriolisJournalSheet,
     { makeDefault: true }
   );
@@ -59,24 +59,24 @@ Hooks.once("init", async function () {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("yzecoriolis", yzecoriolisActorSheet, {
+  Actors.registerSheet("yze-coriolis-overhaul", yzecoriolisActorSheet, {
     types: ["character"],
     makeDefault: true,
     label: "YZECORIOLIS.SheetClassCharacter",
   });
-  Actors.registerSheet("yzecoriolis", yzecoriolisActorSheet, {
+  Actors.registerSheet("yze-coriolis-overhaul", yzecoriolisActorSheet, {
     types: ["npc"],
     makeDefault: true,
     label: "YZECORIOLIS.SheetClassNPC",
   });
-  Actors.registerSheet("yzecoriolis", yzecoriolisShipSheet, {
+  Actors.registerSheet("yze-coriolis-overhaul", yzecoriolisShipSheet, {
     types: ["ship"],
     makeDefault: true,
     label: "YZECORIOLIS.SheetClassShip",
   });
 
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("yzecoriolis", yzecoriolisItemSheet, {
+  Items.registerSheet("yze-coriolis-overhaul", yzecoriolisItemSheet, {
     makeDefault: true,
     label: "SheetClassItem",
   });
@@ -281,11 +281,11 @@ Hooks.once("init", async function () {
   });
 
   Handlebars.registerHelper("ShowFeatures", function () {
-    return game.settings.get("yzecoriolis", "AlwaysShowFeatures");
+    return game.settings.get("yze-coriolis-overhaul", "AlwaysShowFeatures");
   });
 
   Handlebars.registerHelper("AdditionalRollInfos", function () {
-    return game.settings.get("yzecoriolis", "AdditionalRollInfos");
+    return game.settings.get("yze-coriolis-overhaul", "AdditionalRollInfos");
   });
 
   Handlebars.registerHelper("getItemModifierName", function (mod) {
@@ -375,7 +375,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
       title: "YZECORIOLIS.DarknessPointsControls",
       icon: "fas fa-moon",
       button: true,
-      visible: game.settings.get("yzecoriolis", "DarknessPointsVisibility")
+      visible: game.settings.get("yze-coriolis-overhaul", "DarknessPointsVisibility")
         ? true
         : game.user.isGM,
       onChange: () => {
@@ -391,7 +391,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
 
 Hooks.once("ready", async function () {
   // Combat Overhaul: Set D66 initiative formula if enabled
-  const combatOverhaul = game.settings.get("yzecoriolis", "combatOverhaul");
+  const combatOverhaul = game.settings.get("yze-coriolis-overhaul", "combatOverhaul");
   if (combatOverhaul) {
     CONFIG.Combat.initiative = {
       formula: "(1d6 * 10) + 1d6",
@@ -409,7 +409,7 @@ Hooks.once("ready", async function () {
   }
   const currentVersion = game.system.version;
   const lastMigratedToVersion = game.settings.get(
-    "yzecoriolis",
+    "yze-coriolis-overhaul",
     "systemMigrationVersion"
   );
 

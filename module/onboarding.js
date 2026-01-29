@@ -1,5 +1,5 @@
 export async function showOnboardingMessage() {
-  const triggered = game.settings.get("yzecoriolis", "firstLaunch");
+  const triggered = game.settings.get("yze-coriolis-overhaul", "firstLaunch");
   if (triggered) {
     return;
   }
@@ -11,7 +11,7 @@ export async function showOnboardingMessage() {
     content: response,
   });
 
-  await game.settings.set("yzecoriolis", "firstLaunch", true);
+  await game.settings.set("yze-coriolis-overhaul", "firstLaunch", true);
 }
 
 export async function importShipSheetTutorial() {
@@ -22,21 +22,21 @@ export async function importShipSheetTutorial() {
       const journal = game.journal.getName(journalName);
       if (journal) {
         if (
-          journal.getFlag("yzecoriolis", "ver") < newVer ||
-          journal.getFlag("yzecoriolis", "ver") === undefined
+          journal.getFlag("yze-coriolis-overhaul", "ver") < newVer ||
+          journal.getFlag("yze-coriolis-overhaul", "ver") === undefined
         ) {
           await journal.delete();
-          const pack = game.packs.get("yzecoriolis.ship_sheet_instructions");
+          const pack = game.packs.get("yze-coriolis-overhaul.ship_sheet_instructions");
           await game.journal.importFromCompendium(pack, `0QlMn9tJBwKSZ9a6`);
           await game.journal
             .getName(journalName)
-            .setFlag("yzecoriolis", "ver", newVer);
+            .setFlag("yze-coriolis-overhaul", "ver", newVer);
           console.log("New version of Coriolis Ship Sheet Instructions.");
         }
       } else {
-        const pack = game.packs.get("yzecoriolis.ship_sheet_instructions");
+        const pack = game.packs.get("yze-coriolis-overhaul.ship_sheet_instructions");
         await game.journal.importFromCompendium(pack, `0QlMn9tJBwKSZ9a6`);
-        game.journal.getName(journalName).setFlag("yzecoriolis", "ver", newVer);
+        game.journal.getName(journalName).setFlag("yze-coriolis-overhaul", "ver", newVer);
       }
     } catch (error) {
       console.warn("failed to load up ship sheet instructions", error);
