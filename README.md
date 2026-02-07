@@ -84,6 +84,20 @@ For questions, feature requests, or bug reports, feel free to contact me on the 
 
 ## License
 
-This Foundry VTT system is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
+This Foundry VTT module is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
 This work is licensed under [Foundry Virtual Tabletop EULA - Limited License Agreement for module development](https://foundryvtt.com/article/license/).
+
+### Year Zero Engine License Notice
+
+This game is not affiliated with, sponsored, or endorsed by Fria Ligan AB. The Year Zero Engine System Reference Document is used under Fria Ligan AB's Free Tabletop License.
+
+The full text of the Year Zero Engine Free Tabletop License (version 1.0) can be found here: [Year Zero Engine Free Tabletop License](https://freeleaguepublishing.com/wp-content/uploads/2023/11/Year-Zero-Engine-License-Agreement.pdf)
+
+### Representations
+
+The author represents and warrants that this module does not violate or infringe the rights of any third party, and that it complies with all applicable laws, rules, and regulations in every jurisdiction in which it is distributed.
+
+### Disclaimer
+
+FREE LEAGUE IS PROVIDING THE YEAR ZERO ENGINE SYSTEM REFERENCE DOCUMENT "AS IS," MAKES NO REPRESENTATIONS OR WARRANTIES EXCEPT AS EXPRESSLY STATED IN THE YEAR ZERO ENGINE FREE TABLETOP LICENSE AGREEMENT, AND DISCLAIMS ALL WARRANTIES, EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE. Free League has no liability for your use of the YZE SRD and, in addition, you expressly waive any claim for any indirect, punitive, special, exemplary, incidental, or consequential damages.
