@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.2](https://github.com/digitsu/yze-coriolis-overhaul/compare/v4.2.1...v4.2.2) (2026-02-07)
+
+
+### Documentation
+
+* Add Year Zero Engine Free Tabletop License legal notices to README (notice, representations, disclaimer)
+
 ## [4.2.1](https://github.com/digitsu/yze-coriolis-overhaul/compare/v4.2.0...v4.2.1) (2026-01-29)
 
 
